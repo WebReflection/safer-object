@@ -8,6 +8,7 @@ const {
   getPrototypeOf,
   getOwnPropertyDescriptor,
   getOwnPropertyNames,
+  getOwnPropertySymbols,
   hasOwnProperty
 } = Object;
 
@@ -30,7 +31,8 @@ Object.defineProperty(exports, '__esModule', {value: true}).default = object => 
   const names = [];
   const descriptors = [];
   do {
-    getOwnPropertyNames(object).forEach(name => {
+    getOwnPropertyNames(object).concat(getOwnPropertySymbols(object))
+    .forEach(name => {
       if (!names.includes(name)) {
         names.push(name);
         descriptors.push(getOwnPropertyDescriptor(object, name));
