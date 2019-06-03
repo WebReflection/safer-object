@@ -11,6 +11,8 @@ const {
   hasOwnProperty
 } = Object;
 
+const {concat, forEach, includes, push} = [];
+
 const falsify = (descriptor, name) => {
   defineProperty(descriptor, name, {
     enumerable: true,
@@ -30,16 +32,23 @@ export default object => {
   const names = [];
   const descriptors = [];
   do {
-    getOwnPropertyNames(object).concat(getOwnPropertySymbols(object))
-    .forEach(name => {
-      if (!names.includes(name)) {
-        names.push(name);
-        descriptors.push(getOwnPropertyDescriptor(object, name));
+    call(
+      forEach,
+      call(
+        concat,
+        getOwnPropertyNames(object),
+        getOwnPropertySymbols(object)
+      ),
+      name => {
+        if (!call(includes, names, name)) {
+          call(push, names, name);
+          call(push, descriptors, getOwnPropertyDescriptor(object, name));
+        }
       }
-    });
+    );
   }
   while (object = getPrototypeOf(object));
-  names.forEach((name, i) => {
+  call(forEach, names, (name, i) => {
     defineProperty(self, name, updated(descriptors[i]));
   });
   return self;
