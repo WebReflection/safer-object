@@ -1,6 +1,6 @@
 {
   "name": "safer-object",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Flattened objects with non configurable, and non writable fields.",
   "main": "cjs/index.js",
   "module": "esm/index.js",
